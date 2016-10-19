@@ -1,0 +1,4 @@
+$ProfilePath = 'D:\Azure\ARM\Profiles\bi3on88mailru_AzurePass.json'
+Select-AzureRmProfile -Path $ProfilePath
+Test-AzureRmResourceGroupDeployment -ResourceGroupName FDayDestinationRG -TemplateParameterFile D:\TEMP\ARM\ImportTemplate-FDayDestinationRG\parameters.json -TemplateFile D:\TEMP\ARM\ImportTemplate-FDayDestinationRG\template.json
+New-AzureRmResourceGroupDeployment -Name deploy -ResourceGroupName FDayDestinationRG -TemplateParameterFile D:\TEMP\ARM\ImportTemplate-FDayDestinationRG\parameters.json -TemplateFile D:\TEMP\ARM\ImportTemplate-FDayDestinationRG\template.json

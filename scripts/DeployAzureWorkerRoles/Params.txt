@@ -1,0 +1,1 @@
+-subscription "<Subscription name (Bizspark, Pay-as-you-go, etc)>" -service "<Cloud service name>" -storageaccountname "<Storage account name>" -slot "<slot name (production or staging)>" -package "<Package configuration path>" -configuration "<Service configuration file path>" -publishsettings "<Publish settings file path>"

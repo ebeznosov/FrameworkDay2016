@@ -1,0 +1,5 @@
+$ProfilePath = 'D:\Azure\ARM\Profiles\bi3on88mailru_AzurePass.json'
+Select-AzureRmProfile -Path $ProfilePath
+New-AzureRmResourceGroup -Name FDISQ -Location 'North Europe'
+Test-AzureRmResourceGroupDeployment -ResourceGroupName FDISQ -TemplateParameterFile D:\TEMP\ARM\VM-WebAndSQL\parameters.json -TemplateFile D:\TEMP\ARM\VM-WebAndSQL\deploy.json
+New-AzureRmResourceGroupDeployment -name deployvm -ResourceGroupName FDISQ -TemplateParameterFile D:\TEMP\ARM\VM-WebAndSQL\parameters.json -TemplateFile D:\TEMP\ARM\VM-WebAndSQL\deploy.json

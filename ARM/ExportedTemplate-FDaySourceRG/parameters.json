@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servers_fdaysqlserv_name": {
+            "value": null
+        },
+        "storageAccounts_fdaystorage_name": {
+            "value": null
+        },
+        "serverfarms_FDayPlan_name": {
+            "value": null
+        },
+        "sites_FDay_api_name": {
+            "value": null
+        },
+        "sites_FDay_web_name": {
+            "value": null
+        },
+        "databases_master_name": {
+            "value": null
+        },
+        "firewallRules_All_name": {
+            "value": null
+        },
+        "firewallRules_AllowAllWindowsAzureIps_name": {
+            "value": null
+        }
+    }
+}

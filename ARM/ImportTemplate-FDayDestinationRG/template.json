@@ -1,0 +1,224 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servers_fdaysqlserv_name": {
+            "defaultValue": "fdaysqlserv",
+            "type": "String"
+        },
+        "SQLAdmin_password": {
+            "type": "securestring"            
+        },
+        "storageAccounts_fdaystorage_name": {
+            "defaultValue": "fdaystorage",
+            "type": "String"
+        },
+        "serverfarms_FDayPlan_name": {
+            "defaultValue": "FDayPlan",
+            "type": "String"
+        },
+        "sites_FDay_api_name": {
+            "defaultValue": "FDay-api",
+            "type": "String"
+        },
+        "sites_FDay_web_name": {
+            "defaultValue": "FDay-web",
+            "type": "String"
+        },
+        "databases_master_name": {
+            "defaultValue": "fdaysqlserv/master",
+            "type": "String"
+        },
+        "firewallRules_All_name": {
+            "defaultValue": "fdaysqlserv/All",
+            "type": "String"
+        },
+        "firewallRules_AllowAllWindowsAzureIps_name": {
+            "defaultValue": "fdaysqlserv/AllowAllWindowsAzureIps",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [        
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Sql/servers/fdaysqlserv'.",
+            "type": "Microsoft.Sql/servers",
+            "kind": "v12.0",
+            "name": "[parameters('servers_fdaysqlserv_name')]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "Central US",
+            "properties": {
+                "administratorLogin": "SQLAdmin",
+                "administratorLoginPassword": "[parameters('SQLAdmin_password')]",
+                "version": "12.0"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/fdaydestinationrg/providers/Microsoft.Storage/storageAccounts/fdaystorage'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_fdaystorage_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "centralus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Web/serverfarms/FDayPlan'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 0
+            },
+            "name": "[parameters('serverfarms_FDayPlan_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Central US",
+            "properties": {
+                "name": "[parameters('serverfarms_FDayPlan_name')]",
+                "numberOfWorkers": 0
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Web/sites/FDay-api'.",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('sites_FDay_api_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Central US",
+            "tags": {
+                "hidden-related:/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourcegroups/FDaySourceRG/providers/Microsoft.Web/serverfarms/FDayPlan": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_FDay_api_name')]",
+                "hostNames": [
+                    "[concat(parameters('sites_FDay_api_name'),'.azurewebsites.net')]"
+                ],
+                "enabledHostNames": [
+                    "[concat(parameters('sites_FDay_api_name'),'.azurewebsites.net')]",
+                    "[concat(parameters('sites_FDay_api_name'),'.scm.azurewebsites.net')]"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_FDay_api_name'),'.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_FDay_api_name'),'.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_FDayPlan_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_FDayPlan_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Web/sites/FDay-web'.",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('sites_FDay_web_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Central US",
+            "tags": {
+                "hidden-related:/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourcegroups/FDaySourceRG/providers/Microsoft.Web/serverfarms/FDayPlan": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_FDay_web_name')]",
+                "hostNames": [
+                    "[concat(parameters('sites_FDay_web_name'),'.azurewebsites.net')]"
+                ],
+                "enabledHostNames": [
+                    "[concat(parameters('sites_FDay_web_name'),'.azurewebsites.net')]",
+                    "[concat(parameters('sites_FDay_web_name'),'.scm.azurewebsites.net')]"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_FDay_web_name'),'.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_FDay_web_name'),'.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_FDayPlan_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_FDayPlan_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Sql/servers/fdaysqlserv/databases/master'.",
+            "type": "Microsoft.Sql/servers/databases",
+            "kind": "v12.0,system",
+            "name": "[parameters('databases_master_name')]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "Central US",
+            "properties": {
+                "edition": "System",
+                "status": "Online",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "32212254720",
+                "defaultSecondaryLocation": "East US 2"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_fdaysqlserv_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Sql/servers/fdaysqlserv/firewallRules/All'.",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "kind": "v12.0",
+            "name": "[parameters('firewallRules_All_name')]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "Central US",
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "255.255.255.255"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_fdaysqlserv_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/191a9a03-e191-46a0-84ff-db2f7a2d13e6/resourceGroups/FDayDestinationRG/providers/Microsoft.Sql/servers/fdaysqlserv/firewallRules/AllowAllWindowsAzureIps'.",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "kind": "v12.0",
+            "name": "[parameters('firewallRules_AllowAllWindowsAzureIps_name')]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "Central US",
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_fdaysqlserv_name'))]"
+            ]
+        }
+    ]
+}

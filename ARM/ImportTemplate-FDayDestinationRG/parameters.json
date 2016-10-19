@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servers_fdaysqlserv_name": {
+            "value": "fdaysqlservmig2"
+        },
+        "SQLAdmin_password": {
+            "value": "FrameworkDay2016"
+        },
+        "storageAccounts_fdaystorage_name": {
+            "value": "fdaystoragemig2"
+        },
+        "serverfarms_FDayPlan_name": {
+            "value": "FDayPlaMig2"
+        },
+        "sites_FDay_api_name": {
+            "value": "FDay-apimig2"
+        },
+        "sites_FDay_web_name": {
+            "value": "FDay-webmig2"
+        },
+        "databases_master_name": {
+            "value": "fdaysqlservmig2/master"
+        },
+        "firewallRules_All_name": {
+            "value": "fdaysqlservmig2/All"
+        },
+        "firewallRules_AllowAllWindowsAzureIps_name": {
+            "value": "fdaysqlservmig2/AllowAllWindowsAzureIps"
+        }
+    }
+}
