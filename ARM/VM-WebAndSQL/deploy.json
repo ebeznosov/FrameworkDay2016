@@ -44,7 +44,7 @@
     }
   },
   "variables": {
-    "APIVersion": "2016-03-30",
+    "APIVersion": "2015-06-15",
     "StorageName": "[concat(parameters('EnvDNS'), 'storage')]",
     "VhdContainer": "vhds",
     "VirtualNetworkName": "[concat(parameters('EnvDNS'), 'VNet')]",

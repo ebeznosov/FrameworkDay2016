@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "EnvDNS": {
-      "value": "fdaynewenv"
+      "value": "fdayenv"
     },
     "username": {
       "value": "VMAdmin"
